@@ -34,7 +34,15 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
     onBackTap: function() {
         console.log('onBackTap', this, arguments);
-        this.items.first().fireEvent('backTap');
+        this.setActiveCard(this.getForm());
+        this.hideBack();
+    },
+
+    onGoTap: function() {
+        console.log('onGoTap', this, arguments);
+        var self = this;
+        var card = this.setActiveCard('rides');
+        this.showBack();
     },
 
     onTimetap: function(picker, values) {
@@ -79,11 +87,17 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         this.dockedItems.first().items.first().show();
     },
 
+    hideBack: function() {
+        console.log('hideBack', this, arguments);
+        this.dockedItems.first().items.first().hide();
+    },
+
     getForm: function() {
         return {
             xtype: 'form',
             listeners: {
                 scope: this,
+                goTap: this.onGoTap,
                 timeTap: this.onTimetap,
                 appareltap: this.onApparelTap,
                 arrivalTap: this.onArrivalTap,
