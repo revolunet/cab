@@ -1,0 +1,127 @@
+Ext.ns('Cab.master');
+
+Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
+
+    initComponent:function() {
+
+        Ext.apply(this, {
+            dockedItems: [{
+                dock: 'top',
+                xtype: 'toolbar',
+                title: 'TAXI CO.',
+                items: [{
+                    ui: 'back',
+                    text: 'back',
+                    hidden: true,
+                    xtype: 'button',
+                    scope: this,
+                    handler: this.onBackTap
+                }]
+            }]
+            ,items: this.getForm()
+        });
+
+        Cab.master.Layout.superclass.initComponent.apply(this, arguments);
+
+        this.on('showBack', this.showBack, this);
+
+    },
+
+    afterRender: function() {
+        Cab.master.Layout.superclass.afterRender.apply(this, arguments);
+        Cab.utils.removeLoadMask();
+    },
+
+    onBackTap: function() {
+        console.log('onBackTap', this, arguments);
+        this.setActiveCard(this.getForm());
+        this.hideBack();
+    },
+
+    onGoTap: function() {
+        console.log('onGoTap', this, arguments);
+        var self = this;
+        var card = this.setActiveCard(this.getRides());
+        this.showBack();
+    },
+
+    onTimetap: function(picker, values) {
+        console.log('onTimetap', this, arguments);
+        var card = this.getActiveItem();
+        card.list.store.getAt(2).set('value', values.hours + ':' + values.minutes);
+    },
+
+    onApparelTap: function(picker, values) {
+        console.log('onApparelTap', this, arguments);
+        var card = this.getActiveItem();
+        card.list.store.getAt(3).set('value', values.cloth + ':' + values.color);
+    },
+
+    onDepartureTap: function() {
+        console.log('departureTap', this, arguments);
+        var card = this.setActiveCard('departure_list');
+        card.on('itemTap', this.onDepartureListItemTap, this, {single: true});
+    },
+
+    onDepartureListItemTap: function(list, index) {
+        var record = list.store.getAt(index);
+        var card = this.setActiveCard(this.getForm());
+        card.list.store.getAt(0).set('value', record.get('label'));
+    },
+
+    onArrivalTap: function() {
+        console.log('onArrivalTap', this, arguments);
+        var card = this.setActiveCard('arrival_list');
+        card.on('itemTap', this.onArrivalListItemTap, this, {single: true});
+    },
+
+    onArrivalListItemTap: function(list, index) {
+        console.log('onArrivalListItemTap', this, arguments);
+        var record = list.store.getAt(index);
+        var card = this.setActiveCard(this.getForm());
+        card.list.store.getAt(1).set('value', record.get('label'));
+    },
+
+    onRidesItemTap: function(list, index) {
+        console.log('onRidesItemTap', this, arguments);
+        
+    },
+
+    showBack: function() {
+        console.log('showBack', this, arguments, this.dockedItems);
+        this.dockedItems.first().items.first().show();
+    },
+
+    hideBack: function() {
+        console.log('hideBack', this, arguments);
+        this.dockedItems.first().items.first().hide();
+    },
+
+    getForm: function() {
+        return {
+            xtype: 'form',
+            listeners: {
+                scope: this,
+                goTap: this.onGoTap,
+                timeTap: this.onTimetap,
+                appareltap: this.onApparelTap,
+                arrivalTap: this.onArrivalTap,
+                departureTap: this.onDepartureTap
+            }
+        };
+    },
+
+    getRides: function() {
+        console.log('getRides', this, arguments);
+        return {
+            xtype: 'rides',
+            listeners: {
+                scope: this,
+                itemTap: this.onRidesItemTap
+            }
+        };
+    }
+
+});
+
+Ext.reg('master', Cab.master.Layout);
