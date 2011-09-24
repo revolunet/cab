@@ -14,11 +14,12 @@
 #
 development:
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
   database: cab_ruby_development
   pool: 5
-  username: cab_ruby
-  password:
+  username: admin
+  password: admin
+  host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +44,15 @@ test:
   encoding: unicode
   database: cab_ruby_test
   pool: 5
-  username: cab_ruby
-  password:
+  username: admin
+  password: admin
+  host: localhost
 
 production:
   adapter: postgresql
   encoding: unicode
   database: cab_ruby_production
   pool: 5
-  username: cab_ruby
-  password:
+  username: admin
+  password: admin
+  host: localhost
