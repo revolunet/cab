@@ -2,18 +2,21 @@ Ext.ns('Cab.data');
 
 Ext.regModel('Rides', {
     fields: [
-        {name: 'departure'},
-        {name: 'arrival'},
-        {name: 'time'},
-        {name: 'apparel'}
+        {name: 'end'},
+        {name: 'start'},
+        {name: 'userId'},
+        {name: 'selected'}
     ]
 });
 
 Cab.data.Rides = new Ext.data.Store({
-    model: 'Rides'
-    // proxy: {
-    //     type: 'scripttag',
-    //     reader: {type: 'json'},
-    //     url: 'http://172.16.60.65:3000/trips/'
-    // }
+    model: 'Rides',
+    proxy: {
+        type: 'scripttag',
+        url: 'polling.php',
+        reader: {
+            type: 'json',
+            root: 'rides'
+        }
+    }
 });
