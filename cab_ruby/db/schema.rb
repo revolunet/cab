@@ -11,9 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110924062915) do
+ActiveRecord::Schema.define(:version => 20110924120329) do
+
+  create_table "trips", :force => true do |t|
+    t.string   "departure"
+    t.string   "arrival"
+    t.datetime "time"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_sessions", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "login"
+    t.string   "password"
+    t.text     "description"
+    t.string   "sex"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

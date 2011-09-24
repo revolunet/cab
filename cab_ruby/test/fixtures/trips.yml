@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  departure: MyString
+  arrival: MyString
+  time: 2011-09-24 14:03:29
+  description: MyText
+  user_id: 1
+
+two:
+  departure: MyString
+  arrival: MyString
+  time: 2011-09-24 14:03:29
+  description: MyText
+  user_id: 1
