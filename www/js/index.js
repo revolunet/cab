@@ -12,6 +12,10 @@ Ext.setup({
             hideOnMaskTap: false
         }).show();
 
+        var id = Cab.utils.loadUserId();
+        console.log("ID", id);
+
+        Cab.utils.startPolling();
         // Cab.data.List.load();
     }
 

@@ -13,7 +13,7 @@ echo $_GET['callback'];
 		date: '2011-10-23T11:32:44',
 		success: true
 	},
-	cabs: [
+	rides: [
 		{
 			userId: 'IUGYUFUHV',
 			selected: true,

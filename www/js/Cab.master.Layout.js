@@ -41,7 +41,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     onGoTap: function() {
         console.log('onGoTap', this, arguments);
         var self = this;
-        var card = this.setActiveCard('rides');
+        var card = this.setActiveCard(this.getRides());
         this.showBack();
     },
 
@@ -82,6 +82,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         card.list.store.getAt(1).set('value', record.get('label'));
     },
 
+    onRidesItemTap: function(list, index) {
+        console.log('onRidesItemTap', this, arguments);
+        
+    },
+
     showBack: function() {
         console.log('showBack', this, arguments, this.dockedItems);
         this.dockedItems.first().items.first().show();
@@ -102,6 +107,17 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                 appareltap: this.onApparelTap,
                 arrivalTap: this.onArrivalTap,
                 departureTap: this.onDepartureTap
+            }
+        };
+    },
+
+    getRides: function() {
+        console.log('getRides', this, arguments);
+        return {
+            xtype: 'rides',
+            listeners: {
+                scope: this,
+                itemTap: this.onRidesItemTap
             }
         };
     }
