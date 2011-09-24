@@ -5,11 +5,11 @@
     <th>Departure</th>
     <th>Arrival</th>
     <th>Time</th>
-    <th>Description</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Subscribe</th>
+    <%#*<th>User</th>%>
+    <%#*<th></th>%>
+    <%#*<th></th>%>
+    <%#*<th></th>%>
   </tr>
 
 <% @trips.each do |trip| %>
@@ -17,11 +17,24 @@
     <td><%= trip.departure %></td>
     <td><%= trip.arrival %></td>
     <td><%= trip.time %></td>
-    <td><%= trip.description %></td>
-    <td><%= trip.user_id %></td>
-    <td><%= link_to 'Show', trip %></td>
-    <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-    <td><%= link_to 'Destroy', trip, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Subscribe', subscribe_trip_path(trip), :remote => true %>
+    </td>
+    <%#*<td>%>
+      <%#= trip.description %>
+    <%#*</td>%>
+    <%#*<td>%>
+      <%#= trip.user_id %>
+    <%#*</td>%>
+    <%#*<td>%>
+       <%#= link_to 'Show', trip %>
+    <%#*</td>%>
+    <%#*<td>%>
+      <%#= link_to 'Edit', edit_trip_path(trip) %>
+    <%#*</td>%>
+    <%#*<td>%>
+      <%#= link_to 'Destroy', trip, confirm: 'Are you sure?', method: :delete %>
+    <%#*</td>%>
   </tr>
 <% end %>
 </table>
@@ -29,3 +42,6 @@
 <br />
 
 <%= link_to 'New Trip', new_trip_path %>
+
+
+<div id="subscribed"></div>
