@@ -1,0 +1,32 @@
+<%#*<h1>Listing user_sessions</h1>%>
+
+<%#*<table>%>
+  <%#*<tr>%>
+    <%#*<th></th>%>
+    <%#*<th></th>%>
+    <%#*<th></th>%>
+  <%#*</tr>%>
+
+<%# @user_sessions.each do |user_session| %>
+  <%#*<tr>%>
+    <%#*<td>%>
+      <%#= link_to 'Show', user_session %>
+    <%#*</td>%>
+    <%#*<td>%>
+      <%#= link_to 'Edit', edit_user_session_path(user_session) %>
+    <%#*</td>%>
+    <%#*<td>%>
+      <%#= link_to 'Destroy', user_session, confirm: 'Are you sure?', method: :delete %>
+    <%#*</td>%>
+  <%#*</tr>%>
+<%# end %>
+<%#*</table>%>
+
+<%#*<br />%>
+
+<%#= link_to 'New User session', new_user_session_path %>
+
+<center>
+  <%= link_to 'Je suis un taxi', new_user_session_path %>
+  <%= link_to 'Je cherche un taxi', new_user_session_path %>
+</center>
