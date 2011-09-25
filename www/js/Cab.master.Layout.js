@@ -62,9 +62,10 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             params = card.getValues();
 
         params.userId = Cab.utils.userId;
-        console.warn("go", params);
 
         var trip = Ext.ModelMgr.getModel('Trip');
+
+        console.warn("go", params, trip);
 
         trip.load('42', {
             scope: this,
@@ -81,6 +82,8 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     onTimetap: function(picker, values) {
         console.log('onTimetap', this, arguments);
         var card = this.getActiveItem();
+        var hours = values.hours > 9 ? values.hours : '0'+values.hours;
+        var minutes = values.minutes > 9 ? values.minutes : '0'+values.minutes;
         var time = values.hours + ':' + values.minutes;
         card.list.store.getAt(2).set('value', time);
         card.list.store.getAt(2).set('displayValue', time);
