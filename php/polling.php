@@ -71,7 +71,7 @@ $sql .= " and `to`=".$user_trip['to']." ";
 // status
 $sql .= " and status in ('FREE', 'PENDING') ";
 // exclude myself
-$sql .= " and user<>".$user_id." ";
+$sql .= " and user!=".$user_id." ";
 
 $sql .= " group by user order by start, id ";
 
