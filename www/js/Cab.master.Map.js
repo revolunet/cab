@@ -1,5 +1,37 @@
 Ext.ns('Cab.master');
 
+Ext.ns('Cab.master');
+
+Cab.master.MapContainer = Ext.extend(Ext.Panel, {
+
+    initComponent:function() {
+
+        Ext.apply(this, {
+            items: {xtype: 'xmap'},
+            dockedItems: [{
+                dock: 'bottom',
+                xtype: 'toolbar',
+                items: [{
+                    html: 'gloves red',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }, {xtype: 'spacer'}, {
+                    html: '15:00',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }]
+            }]
+        });
+
+        Cab.master.MapContainer.superclass.initComponent.apply(this, arguments);
+
+    }
+
+});
+
+Ext.reg('mapcontainer', Cab.master.MapContainer);
+
+
 Cab.master.Map =  Ext.extend(Ext.Map, {
     // width:800,
     // height:400,

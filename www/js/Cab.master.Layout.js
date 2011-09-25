@@ -16,19 +16,20 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     xtype: 'button',
                     scope: this,
                     handler: this.onBackTap
-                }],
-            // } ,{
-            //     dock: 'bottom',
-            //     xtype: 'toolbar',
-            //     items: [{
-            //         html: 'gloves red',
-            //         xtype: 'container',
-            //         style: {color: 'rgb(255, 230, 27)'}
-            //     }, {xtype: 'spacer'}, {
-            //         html: '15:00',
-            //         xtype: 'container',
-            //         style: {color: 'rgb(255, 230, 27)'}
-            //     }]
+                }]
+            }, {
+                hidden: true,
+                dock: 'bottom',
+                xtype: 'toolbar',
+                items: [{
+                    html: 'gloves red',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }, {xtype: 'spacer'}, {
+                    html: '15:00',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }]
             }]
             ,items: {
                 xtype: 'login',
@@ -66,6 +67,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     onAccpect: function() {
         console.warn("onAccpect", this, arguments);
         this.setActiveCard( this.getMap() );
+        // this.dockedItems.getAt(1).show();
     },
 
     onRidesLoad: function() {
@@ -96,11 +98,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             card = this.getActiveItem(),
             params = card.getValues();
 
-        console.warn("go", params,     !params.arrival, !params.arrival.length, !params.departure, !params.departure.length, !params.description, !params.description.length, !params.time, !params.time.length);
+        console.warn("go", params, isNaN(params.arrival), isNaN(params.departure), !params.description, !params.description.length, !params.time, !params.time.length);
 
         if (
-            !params.arrival
-            || !params.departure
+            isNaN(params.arrival)
+            || isNaN(params.departure)
             || !params.description || !params.description.length
             || !params.time || !params.time.length
         ) return;
@@ -213,7 +215,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     getMap: function() {
         console.log("getMap", this, arguments);
         return {
-            xtype: 'xmap'
+            xtype: 'mapcontainer'
         };
     }
 
