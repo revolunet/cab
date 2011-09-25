@@ -31,6 +31,12 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
         this.on('showBack', this.showBack, this);
 
+        Cab.data.Rides.on('decline', this.onDecline, this);
+
+    }, 
+
+    onDecline: function() {
+        this.setActiveCard( this.getForm() );
     },
 
     onRidesLoad: function() {
