@@ -37,7 +37,7 @@ Cab.utils = {
     loadUserId: function() {
         var userId = Cab.utils.localStorage._getItems()[0];
         if (!userId) {
-            userId = Ext.id();
+            userId = Math.random();
             Cab.utils.localStorage.add(userId);
             console.log("createUserId", userId);
         }
@@ -71,7 +71,7 @@ Cab.utils = {
 
     localStorage: new function() {
 				
-		this._localKey = 'userId';
+		this._localKey = 'Cab-userId';
 		this._items = [];
 
 		this.add = function(item) {

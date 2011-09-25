@@ -37,7 +37,7 @@ Cab.form.Layout = Ext.extend(Ext.Panel, {
         this.button = {
             xtype: 'button',
             text: 'GO',
-            width: 100,
+            width: 150,
             style: {margin: '20px auto'},
             handler: Ext.createDelegate(this.fireEvent, this, ['goTap'], false)
         };

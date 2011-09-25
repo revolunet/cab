@@ -15,7 +15,7 @@ Cab.data.Trip = new Ext.data.Store({
     data: [
         {label: 'departure', value: 4, dislayValue: 'test'},
         {label: 'arrival', value:5, dislayValue: 'test'},
-        {label: 'time', value: '11:00', dislayValue: '11:00'},
+        {label: 'time', value: '15:00', dislayValue: '15:00'},
         {label: 'description', value: 'red gloves', dislayValue: 'red gloves'}
     ],
     reset: function() {

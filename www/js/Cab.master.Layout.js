@@ -31,6 +31,21 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
         this.on('showBack', this.showBack, this);
 
+        Cab.data.Rides.on({
+            scope: this,
+            accept: this.onAccpect,
+            decline: this.onDecline
+        });
+
+    }, 
+
+    onDecline: function() {
+        this.setActiveCard( this.getForm() );
+    },
+
+    onAccpect: function() {
+        console.warn("onAccpect", this, arguments);
+        this.setActiveCard( this.getMap() );
     },
 
     onRidesLoad: function() {
@@ -163,6 +178,13 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                 scope: this,
                 itemTap: this.onRidesItemTap
             }
+        };
+    },
+
+    getMap: function() {
+        console.log("getMap", this, arguments);
+        return {
+            xtype: 'xmap'
         };
     }
 
