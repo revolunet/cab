@@ -12,11 +12,11 @@ Cab.master.MapContainer = Ext.extend(Ext.Panel, {
                 dock: 'bottom',
                 xtype: 'toolbar',
                 items: [{
-                    html: 'gloves red',
+                    html: this.infoData.description,
                     xtype: 'container',
                     style: {color: 'rgb(255, 230, 27)'}
                 }, {xtype: 'spacer'}, {
-                    html: '15:00',
+                    html: this.infoData.time,
                     xtype: 'container',
                     style: {color: 'rgb(255, 230, 27)'}
                 }]

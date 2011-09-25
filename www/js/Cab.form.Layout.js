@@ -66,17 +66,17 @@ Cab.form.Layout = Ext.extend(Ext.Panel, {
 
     onItemTap: function(list, index) {
         var record = this.list.store.getAt(index);
-        console.log('onItemTap', this, arguments, record, record.get('label'));
-        var label = record.get('label');
-        if (label === 'departure') {
+        console.log('onItemTap', this, arguments, record, record.get('attr'));
+        var attr = record.get('attr');
+        if (attr === 'departure') {
             console.warn("FIRE departureTap");
             this.fireEvent('departureTap');
-        } else if (label === 'arrival') {
+        } else if (attr === 'arrival') {
             console.warn("FIRE arrivalTap");
             this.fireEvent('arrivalTap');
-        } else if (label === 'time') {
+        } else if (attr === 'time') {
             this.timePicker.show();
-        } else if (label === 'description') {
+        } else if (attr === 'description') {
             this.apparelPicker.show();
         }
         // this.fireEvent('showBack');
@@ -109,7 +109,7 @@ Cab.form.Layout = Ext.extend(Ext.Panel, {
         console.log('getValues', this, arguments, records);
         values = {};
         this.list.store.each(function(record, index) {
-            values[record.get('label')] = record.get('value');
+            values[record.get('attr')] = record.get('value');
         });
 
         values.time = this.formatDate(values.time);

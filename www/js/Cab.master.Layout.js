@@ -124,7 +124,12 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
     onAccept: function(data) {
         console.warn("onAccept", this, arguments);
-        var card = this.setActiveCard( this.getMap() );
+        var card = this.setActiveCard( this.getMap(data) );
+        // card.on('activated', function() {
+        //     console.log("ACTIVATION", this, arguments);
+        //     card.dockedItems.first().update(data.description);
+        //     card.dockedItems.last().update(data.time);
+        // });
         // card.dockedItems
         // this.dockedItems.getAt(1).show();
     },
@@ -293,10 +298,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         };
     },
 
-    getMap: function() {
+    getMap: function(data) {
         console.log("getMap", this, arguments);
         return {
-            xtype: 'mapcontainer'
+            xtype: 'mapcontainer',
+            infoData: data
         };
     }
 
