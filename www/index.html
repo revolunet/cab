@@ -7,8 +7,9 @@
         <link rel="stylesheet" type="text/css" href="js/lib/sencha-touch/resources/css/sencha-touch.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" >
-                // var API_URL = 'http://172.16.60.65:3000/';
-                var API_URL = 'http://172.16.60.46/cab/php/';
+                var API_URL = 'http://172.16.60.65:3000/';
+                if (document.location.host == 'apache') API_URL = 'http://apache/cab/php/';
+                if (document.location.host == '172.16.60.46') API_URL = 'http://172.16.60.46/cab/php/';
         </script>
     </head>
     <body>

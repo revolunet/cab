@@ -23,7 +23,7 @@ Cab.utils = {
         Cab.utils.poll();
         this.pollTimeout = setInterval(function() {
             Cab.utils.poll();
-        }, 5000);
+        }, 1000);
     },
 
     poll: function() {
