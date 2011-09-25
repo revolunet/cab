@@ -15,6 +15,6 @@ Cab.data.Location = new Ext.data.Store({
     proxy: {
         type: 'scripttag',
         reader: {type: 'json'},
-        url: API_URL + 'places/index.json'
+        url: API_URL + 'places.php'
     }
 });

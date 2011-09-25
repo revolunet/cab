@@ -6,7 +6,7 @@ Ext.regModel('Trip', {
     ],
     proxy: {
         type: 'scripttag',
-        url: API_URL + 'trips/create_trip'
+        url: API_URL + 'create_trip.php'
     }
 });
 

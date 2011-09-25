@@ -1,7 +1,7 @@
 <?php
 require('lib.php');
 
-$tripId = $_GET["tripId	"];
+$tripId = isset($_GET["tripId"]) && $_GET["tripId"] || 0;
 $passengerId = $_GET["passengerId"];
 $checked = ($_GET["value"]=='true');
   
@@ -63,7 +63,7 @@ $sql = "SELECT trips.from, trips.to, users.description  from trips,users where  
 $user_trip = mysql_fetch_assoc(mysql_query( $sql ));
  
 
-$sql = "SELECT trips.id,`from`,`to`,date_format(start, '%H:%i') as start,users.uid as userId from trips,users WHERE users.id=trips.user and start >= NOW() ";
+$sql = "SELECT trips.id,`from`,`to`,date_format(start, '%H:%i') as start,users.uid as userId, users.description from trips,users WHERE users.id=trips.user and start >= NOW() ";
 // from and to same place
 
 $sql .= " and `from`=".$user_trip['from']." ";
@@ -71,7 +71,7 @@ $sql .= " and `to`=".$user_trip['to']." ";
 // status
 $sql .= " and status in ('FREE', 'PENDING') ";
 // exclude myself
-$sql .= " and user<>".$user_id." ";
+$sql .= " and user!=".$user_id." ";
 
 $sql .= " group by user order by start, id ";
 
@@ -95,7 +95,7 @@ if ($trips) {
 	    	'start' => $start['label'],
 	    	'end' => $end['label'],
 	    	'time' => $row['start'],
-	    	'description' => $user_trip['description']
+	    	'description' => $row['description']
 		);
 	 
 		$json['rides'][] = $ride;

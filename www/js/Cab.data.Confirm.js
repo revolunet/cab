@@ -5,6 +5,6 @@ Ext.regModel('Confirm', {
     ],
     proxy: {
         type: 'scripttag',
-        url: API_URL + 'confirm'
+        url: API_URL + 'confirm.php'
     }
 });
