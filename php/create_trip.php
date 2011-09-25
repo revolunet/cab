@@ -30,6 +30,10 @@ $res = mysql_query($sql);
 $sql = "INSERT INTO trips SET `from`=".$departure.", `to`=".$arrival.",start='".$start."',user=".$user_id.";";
 $res = mysql_query($sql);
 
+if (isset($_GET['description']) && $_GET['description']!='') {
+	$sql = 'UPDATE users set DESCRIPTION="'.  $_GET['description'] .'" WHERE id='.$user_id.';';
+	mysql_query($sql);
+}
 $json = array(
 	'success'=>true
 );

@@ -57,7 +57,7 @@ if ($requests) {
 // rides
 
 // get user info
-$sql = "SELECT * from trips,users where  users.id=trips.user and users.id=(SELECT ID from users where uid='".$uid. "') order by trips.id desc limit 0,1 ";
+$sql = "SELECT trips.from, trips.to, users.description  from trips,users where  users.id=trips.user and users.id=(SELECT ID from users where uid='".$uid. "') order by trips.id desc limit 0,1 ";
  
 
 $user_trip = mysql_fetch_assoc(mysql_query( $sql ));
@@ -94,7 +94,8 @@ if ($trips) {
 	    	'selected' => $selected,
 	    	'start' => $start['label'],
 	    	'end' => $end['label'],
-	    	'time' => $row['start']
+	    	'time' => $row['start'],
+	    	'description' => $user_trip['description']
 		);
 	 
 		$json['rides'][] = $ride;
