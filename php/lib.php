@@ -18,8 +18,8 @@ function getUserId( $uid ) {
 	return $res['id'];
 }
 
-function jsonOutput( $json ) {
-	header('Content-type: application/json');
+function jsonOutput( $json, $header = true ) {
+	if ($header ) header('Content-type: application/json');
 	if (isset($_GET['callback'])) echo $_GET['callback'].'(';
 	echo json_encode( $json );
 	if (isset($_GET['callback'])) echo ')';

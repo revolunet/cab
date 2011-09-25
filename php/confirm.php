@@ -44,7 +44,7 @@ else {
 	// 1) delete le trip
 	//$sql="DELETE from trips where user=".$user_id.";";
 	//$sql="UPDATE trips set statut='canceled' where user=(SELECT ID FROM users WHERE uid='".$uid."');";
-	$sql = "UPDATE from trips set status='canceled' where user=".$user_id."; ";
+	$sql = "UPDATE from trips set status='canceled' where id=".$tripId."; ";
 	$res = mysql_query($sql);
 
 	//$sql="DELETE from trips where user=".$passengerId.";";

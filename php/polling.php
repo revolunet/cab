@@ -12,6 +12,8 @@ $json = array(
 
 // requetes en attente ? 
 $sql2 = " SELECT requests.id as reqid, trips.id as tripid, 	
+		date_format(trips.start, '%H:%i') as time,
+		(select users.description from users where id=requests.user) as description, 
 		(select users.uid from users where id=requests.user) as userId, requests.timesent 
 		from requests,users,trips where requests.trip=trips.id and users.id=trips.user 
 		and ISNULL(timesent) and ISNULL(confirmsent) and users.uid='" . $uid . "' 
@@ -34,7 +36,7 @@ if ($requests) {
 	}
 }
 // confirmations en attente ?
-$sql2 = " SELECT requests.id as reqid, (select users.uid from users where id=trips.user) as userId, requests.timesent, requests.status from requests,users,trips where requests.trip=trips.id and confirmsent>0 and requests.user = (select id from users where uid='" . $uid . "') order by requests.id limit 0,1 "; 	
+$sql2 = " SELECT requests.id as reqid, (select users.uid from users where id=trips.user) as userId, (select users.description from users where id=trips.user) as description,requests.timesent, requests.status, date_format(trips.start, '%H:%i') as time from requests,users,trips where requests.trip=trips.id and confirmsent>0 and requests.user = (select id from users where uid='" . $uid . "') order by requests.id limit 0,1 "; 	
  
 $requests = mysql_query($sql2);
 if ($requests) {
@@ -42,6 +44,8 @@ if ($requests) {
 		$json['response'] = array(
 			'userId'=>$row['userId'],
 			'date'=>$row['timesent'],
+			'time'=>$row['time'],			
+			'description'=>$row['description'],
 			'success'=>$row['status']
 		);
 		// delete it
