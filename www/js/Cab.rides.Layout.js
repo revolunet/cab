@@ -71,7 +71,7 @@ Cab.rides.Layout = Ext.extend(Ext.Panel, {
                     margin: '20px auto',
                     'text-align': 'center'
                 },
-                html: 'Nous sommes à la recherche d\'un utilisateur pouvant partager votre trajet.<br />Veuillez patienter...<br /><div class="x-mask-loading" style="width: 50px;margin: 20px auto 0;"><div class="x-loading-spinner"><span class="x-loading-top"></span><span class="x-loading-right"></span><span class="x-loading-bottom"></span><span class="x-loading-left"></span></div></div>'
+                html: 'Votre trajet a été ajouté.<br />Veuillez patienter en attendant qu\'un utilisateur vous choisisse...<br /><div class="x-mask-loading" style="width: 50px;margin: 20px auto 0;"><div class="x-loading-spinner"><span class="x-loading-top"></span><span class="x-loading-right"></span><span class="x-loading-bottom"></span><span class="x-loading-left"></span></div></div>'
             });
         }
 
