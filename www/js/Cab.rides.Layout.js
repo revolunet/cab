@@ -33,12 +33,18 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
     createFields: function() {
         console.log('createFields', this, arguments);
         this.removeAll();
+        var userId = Cab.utils.userId;
         Cab.data.Rides.each(function(record, index) {
             console.log("RECORDS", record);
+            var tripId = record.get('tripId');
             this.add({
+                // xtype: userId === tripId ? 'checkboxfield' : 'field',
+                // labelWidth: userId === tripId ? '80%' : '100%',
                 xtype: 'checkboxfield',
+                // cls: 'hidden-check',
                 labelWidth: '80%',
-                tripId: record.get('tripId'),
+                tripId: tripId,
+                disabled: userId === tripId,
                 checked: record.get('selected'),
                 label: this.labelTpl.apply(record.data),
                 listeners: {
