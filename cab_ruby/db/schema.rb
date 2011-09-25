@@ -11,16 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110924120329) do
+ActiveRecord::Schema.define(:version => 20110924210620) do
 
   create_table "trips", :force => true do |t|
     t.string   "departure"
     t.string   "arrival"
     t.datetime "time"
     t.text     "description"
-    t.integer  "user_id"
+    t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "passenger_id"
+    t.boolean  "flag_cab"
+    t.boolean  "flag_passenger"
+    t.float    "lat_cab"
+    t.float    "lng_cab"
+    t.float    "lat_passenger"
+    t.float    "lng_passenger"
+    t.float    "start_latitude"
+    t.float    "start_longitude"
+    t.float    "end_latitude"
+    t.float    "end_longitude"
   end
 
   create_table "user_sessions", :force => true do |t|
