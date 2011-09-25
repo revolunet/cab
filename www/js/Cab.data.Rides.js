@@ -4,6 +4,7 @@ Ext.regModel('Rides', {
     fields: [
         {name: 'end'},
         {name: 'start'},
+        {name: 'time'},
         {name: 'tripId'},
         {name: 'selected'}
     ]

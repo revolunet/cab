@@ -101,7 +101,7 @@ Cab.form.Layout = Ext.extend(Ext.Panel, {
         // var hour = time.split(':')[0];
         // var minute = time.split(':')[1];
 
-        return year + '/' + month + '/' + day + '/' + ' ' + time + ':00';
+        return year + '/' + month + '/' + day + ' ' + time + ':00';
     },
 
     getValues: function() {

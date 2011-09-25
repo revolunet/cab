@@ -1,7 +1,8 @@
 Ext.regModel('Trip', {
     fields: [
         {name: 'label'},
-        {name: 'value'}
+        {name: 'value'},
+        {name: 'displayValue'}
     ],
     proxy: {
         type: 'scripttag',
@@ -12,14 +13,14 @@ Ext.regModel('Trip', {
 Cab.data.Trip = new Ext.data.Store({
     model: 'Trip',
     data: [
-        {label: 'departure', value: '', dislayValue: 'toto'},
+        {label: 'departure', value: 42, dislayValue: 'toto'},
         {label: 'arrival', value: '', dislayValue: ''},
         {label: 'time', value: '', dislayValue: ''},
         {label: 'description', value: '', dislayValue: ''}
     ],
     reset: function() {
         this.loadData([
-            {label: 'departure', value: '', dislayValue: ''},
+            {label: 'departure', value: 42, dislayValue: 'titi'},
             {label: 'arrival', value: '', dislayValue: ''},
             {label: 'time', value: '', dislayValue: ''},
             {label: 'description', value: '', dislayValue: ''}

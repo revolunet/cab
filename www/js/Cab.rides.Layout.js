@@ -4,12 +4,12 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
 
     labelTpl: new Ext.XTemplate(
         '<div class="x-layout-box-inner x-layout-box">'
-            + '<div>'
+            + '<div style="-webkit-box-flex: 1">'
                 + '<div>{start}</div>'
                 + '<div>{end}</div>'
             + '</div>'
             + '<div>'
-                + '<div>{time}</div>'
+                + '<div style="margin: 5px">{time}</div>'
             + '</div>'
         + '</div>', {compiled: true}),
 
@@ -37,7 +37,7 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
             console.log("RECORDS", record);
             this.add({
                 xtype: 'checkboxfield',
-                labelWidth: '100%',
+                labelWidth: '80%',
                 tripId: record.get('tripId'),
                 checked: record.get('selected'),
                 label: this.labelTpl.apply(record.data),
@@ -54,18 +54,18 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
         console.log('fieldChange', this, arguments);
         var ride = Ext.ModelMgr.getModel('Ride');
 
-        trip.load('42', {
+        ride.load('42', {
             scope: this,
             params: {
                 userId: Cab.utils.userId,
                 tripId: field.tripId,
-            },
-            callback: function(model, response) {
-                console.log("callback", this, arguments);
-                Cab.utils.startPolling();
-                var card = self.setActiveCard(self.getRides());
-                self.showBack();
             }
+            // callback: function(model, response) {
+            //     console.log("callback", this, arguments);
+            //     Cab.utils.startPolling();
+            //     var card = self.setActiveCard(self.getRides());
+            //     self.showBack();
+            // }
         });
     }
 
