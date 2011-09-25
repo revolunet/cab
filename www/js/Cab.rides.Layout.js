@@ -12,8 +12,9 @@ Cab.rides.Layout = Ext.extend(Ext.Panel, {
             //     + '<div>Vers:</div>'
             // + '</div>'
             + '<div style="-webkit-box-flex: 1; font-weight: normal; font-size: 13px;">'
-                + '<div><span style="font-size: 13px;font-weight: bold; display: inline-block; width: 35px; text-align: right; padding-right: 5px">De:</span>{start}</div>'
-                + '<div><span style="font-size: 13px;font-weight: bold; display: inline-block; width: 35px; text-align: right; padding-right: 5px">Vers:</span>{end}</div>'
+                + '<div><span style="font-size: 13px;font-weight: bold; display: inline-block; width: 50px; text-align: right; padding-right: 5px">De:</span>{start}</div>'
+                + '<div><span style="font-size: 13px;font-weight: bold; display: inline-block; width: 50px; text-align: right; padding-right: 5px">Vers:</span>{end}</div>'
+                + '<div style="margin-top: 5px"><span style="font-size: 13px;font-weight: bold; display: inline-block; width: 50px; text-align: right; padding-right: 5px">Tenue:</span>{description}</div>'
             + '</div>'
             + '<div style="padding: 5px">{time}</div>'
         + '</div>', {compiled: true}),
@@ -43,7 +44,7 @@ Cab.rides.Layout = Ext.extend(Ext.Panel, {
         if (Cab.data.Rides.getCount()) {
             Cab.data.Rides.each(function(record, index) {
                 console.log("RECORDS", record);
-                var remoteUserId = record.get('userId');
+                // var remoteUserId = record.get('userId');
                 this.add({
                     // xtype: userId === tripId ? 'checkboxfield' : 'field',
                     // labelWidth: userId === tripId ? '80%' : '100%',
@@ -51,7 +52,7 @@ Cab.rides.Layout = Ext.extend(Ext.Panel, {
                     // cls: 'hidden-check',
                     labelWidth: '80%',
                     tripId: record.get('tripId'),
-                    disabled: userId === remoteUserId,
+                    // disabled: userId === remoteUserId,
                     checked: record.get('selected'),
                     label: this.labelTpl.apply(record.data),
                     listeners: {

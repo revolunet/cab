@@ -13,17 +13,17 @@ Ext.regModel('Trip', {
 Cab.data.Trip = new Ext.data.Store({
     model: 'Trip',
     data: [
-        {label: 'departure', value: 4, dislayValue: 'test'},
-        {label: 'arrival', value:5, dislayValue: 'test'},
-        {label: 'time', value: '15:00', dislayValue: '15:00'},
-        {label: 'description', value: 'red gloves', dislayValue: 'red gloves'}
+        {attr: 'departure', label: 'Départ', value: 4, dislayValue: 'test'},
+        {attr: 'arrival', label: 'Arrivée', value:5, dislayValue: 'test'},
+        {attr: 'time', label: 'Heure dep.', value: '15:00', dislayValue: '15:00'},
+        {attr: 'description', label: 'Tenue', value: 'red gloves', dislayValue: 'red gloves'}
     ],
     reset: function() {
         this.loadData([
-            {label: 'departure', value: 4, dislayValue: 'test'},
-            {label: 'arrival', value:5, dislayValue: 'test'},
-            {label: 'time', value: '15:00', dislayValue: '15:00'},
-            {label: 'description', value: 'red gloves', dislayValue: 'red gloves'}
+            {attr: 'departure', label: 'Départ', value: 4, dislayValue: 'test'},
+            {attr: 'arrival', label: 'Arrivée', value:5, dislayValue: 'test'},
+            {attr: 'time', label: 'Heure dep.', value: '15:00', dislayValue: '15:00'},
+            {attr: 'description', label: 'Tenue', value: 'red gloves', dislayValue: 'red gloves'}
         ]);
     }
 });
