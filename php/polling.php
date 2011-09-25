@@ -64,10 +64,10 @@ $sql .= " and `from`=".$user_trip['from']." ";
 $sql .= " and `to`=".$user_trip['to']." ";
 // status
 $sql .= " and status in ('FREE', 'PENDING') ";
-// exclude
-$sql .= " and user not in (SELECT id from users where uid='".$uid."' ) ";
+// exclude myself
+$sql .= " and user<>".$user_id." ";
 
-$sql .= " order by start ";
+$sql .= " group by user order by start, id ";
 
  
  

@@ -11,7 +11,7 @@ $start = str_replace('/', '-', $start);
 
 $sql = "SELECT id from users where uid='".$uid."';"; 
 $has_user = mysql_fetch_assoc(mysql_query($sql));
-$userid = 0;
+$user_id = 0;
 if (!$has_user) {
 	mysql_query("INSERT INTO users SET uid='".$uid."', name='".$uid."';");
 	$user_id = mysql_insert_id();
