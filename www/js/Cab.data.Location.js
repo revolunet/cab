@@ -15,7 +15,7 @@ Cab.data.Location = new Ext.data.Store({
     proxy: {
         type: 'scripttag',
         reader: {type: 'json'},
-        url: 'http://172.16.60.65:3000/places/index.json'
+        url: API_URL + 'places/index.json'
     }
     // data: [
     //     {name:"Opéra Bastille", lat:48.853986, lng:2.369957, id: 42},
