@@ -7,6 +7,7 @@ Cab.form.TimePicker = Ext.extend(Ext.Picker, {
         data : function() {
             var data = [];
             for (var i = 0; i < 24; i++) {
+                if (i < 10) i = '0' + i;
                 data.push({text: i, value: i});
             }
             return data;
@@ -17,6 +18,7 @@ Cab.form.TimePicker = Ext.extend(Ext.Picker, {
         data : function() {
             var data = [];
             for (var i = 0; i < 60; i++) {
+                if (i < 10) i = '0' + i;
                 data.push({text: i, value: i});
             }
             return data;
