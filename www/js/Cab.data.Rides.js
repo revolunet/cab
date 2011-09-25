@@ -6,6 +6,7 @@ Ext.regModel('Rides', {
         {name: 'start'},
         {name: 'time'},
         {name: 'tripId'},
+        {name: 'userId'},
         {name: 'selected'}
     ]
 });
