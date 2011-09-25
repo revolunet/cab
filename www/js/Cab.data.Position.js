@@ -5,6 +5,6 @@ Ext.regModel('Position', {
     ],
     proxy: {
         type: 'scripttag',
-        url: API_URL + 'trips/move'
+        url: API_URL + 'move.php'
     }
 });
