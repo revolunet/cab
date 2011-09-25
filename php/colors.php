@@ -9,12 +9,15 @@ $sql = mysql_query("SELECT * from colors order by color_name ASC");
 while ($row = mysql_fetch_assoc($sql)) {
 	$colors = array(
 		'id'=> $row['id'],
-		'name'=> $row['colors_name']
+		'name'=> $row['color_name']
 	);
 	$json[] = $colors;
 }
 
+header('Content-type: application/x-javascript');
+
 echo  "var colors =";
-jsonOutput($json);
+jsonOutput($json, false);
+echo ";";
 
 ?>
