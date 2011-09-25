@@ -14,7 +14,10 @@ while ($row = mysql_fetch_assoc($sql)) {
 	$json[] = $name;
 }
 
-echo "var clothes =";
-jsonOutput($json);
+header('Content-type: application/x-javascript');
 
+
+echo "var clothes =";
+jsonOutput($json, false);
+echo ";";
 ?>

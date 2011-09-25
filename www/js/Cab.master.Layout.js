@@ -95,7 +95,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         if (data.response) {
             // received a share request response
             console.log('received a response', data.response);
-            if (data.response.success) {
+            if (data.response.success == "1") {
                 Ext.Msg.alert("Demande acceptée", "Votre demande de partage a été acceptée", function(btnId) {
                     console.warn("DEMAND RESPONSE", btnId, data.response);
                      if (btnId === 'ok') {

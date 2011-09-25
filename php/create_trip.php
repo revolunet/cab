@@ -11,7 +11,7 @@ $start = str_replace('/', '-', $start);
 
 $sql = "SELECT id from users where uid='".$uid."';"; 
 $has_user = mysql_fetch_assoc(mysql_query($sql));
-$userid = 0;
+$user_id = 0;
 if (!$has_user) {
 	mysql_query("INSERT INTO users SET uid='".$uid."', name='".$uid."';");
 	$user_id = mysql_insert_id();
@@ -30,6 +30,10 @@ $res = mysql_query($sql);
 $sql = "INSERT INTO trips SET `from`=".$departure.", `to`=".$arrival.",start='".$start."',user=".$user_id.";";
 $res = mysql_query($sql);
 
+if (isset($_GET['description']) && $_GET['description']!='') {
+	$sql = 'UPDATE users set DESCRIPTION="'.  $_GET['description'] .'" WHERE id='.$user_id.';';
+	mysql_query($sql);
+}
 $json = array(
 	'success'=>true
 );

@@ -12,6 +12,8 @@ $json = array(
 
 // requetes en attente ? 
 $sql2 = " SELECT requests.id as reqid, trips.id as tripid, 	
+		date_format(trips.start, '%H:%i') as time,
+		(select users.description from users where id=requests.user) as description, 
 		(select users.uid from users where id=requests.user) as userId, requests.timesent 
 		from requests,users,trips where requests.trip=trips.id and users.id=trips.user 
 		and ISNULL(timesent) and ISNULL(confirmsent) and users.uid='" . $uid . "' 
@@ -34,7 +36,7 @@ if ($requests) {
 	}
 }
 // confirmations en attente ?
-$sql2 = " SELECT requests.id as reqid, (select users.uid from users where id=trips.user) as userId, requests.timesent, requests.status from requests,users,trips where requests.trip=trips.id and confirmsent>0 and requests.user = (select id from users where uid='" . $uid . "') order by requests.id limit 0,1 "; 	
+$sql2 = " SELECT requests.id as reqid, (select users.uid from users where id=trips.user) as userId, (select users.description from users where id=trips.user) as description,requests.timesent, requests.status, date_format(trips.start, '%H:%i') as time from requests,users,trips where requests.trip=trips.id and confirmsent>0 and requests.user = (select id from users where uid='" . $uid . "') order by requests.id limit 0,1 "; 	
  
 $requests = mysql_query($sql2);
 if ($requests) {
@@ -42,6 +44,8 @@ if ($requests) {
 		$json['response'] = array(
 			'userId'=>$row['userId'],
 			'date'=>$row['timesent'],
+			'time'=>$row['time'],			
+			'description'=>$row['description'],
 			'success'=>$row['status']
 		);
 		// delete it
@@ -53,7 +57,7 @@ if ($requests) {
 // rides
 
 // get user info
-$sql = "SELECT * from trips,users where  users.id=trips.user and users.id=(SELECT ID from users where uid='".$uid. "') order by trips.id desc limit 0,1 ";
+$sql = "SELECT trips.from, trips.to, users.description  from trips,users where  users.id=trips.user and users.id=(SELECT ID from users where uid='".$uid. "') order by trips.id desc limit 0,1 ";
  
 
 $user_trip = mysql_fetch_assoc(mysql_query( $sql ));
@@ -66,10 +70,10 @@ $sql .= " and `from`=".$user_trip['from']." ";
 $sql .= " and `to`=".$user_trip['to']." ";
 // status
 $sql .= " and status in ('FREE', 'PENDING') ";
-// exclude
-$sql .= " and user not in (SELECT id from users where uid='".$uid."' ) ";
+// exclude myself
+$sql .= " and user<>".$user_id." ";
 
-$sql .= " order by start ";
+$sql .= " group by user order by start, id ";
 
  
  
@@ -90,7 +94,8 @@ if ($trips) {
 	    	'selected' => $selected,
 	    	'start' => $start['label'],
 	    	'end' => $end['label'],
-	    	'time' => $row['start']
+	    	'time' => $row['start'],
+	    	'description' => $user_trip['description']
 		);
 	 
 		$json['rides'][] = $ride;
