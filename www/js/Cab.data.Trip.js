@@ -12,7 +12,7 @@ Ext.regModel('Trip', {
 Cab.data.Trip = new Ext.data.Store({
     model: 'Trip',
     data: [
-        {label: 'departure', value: '', dislayValue: ''},
+        {label: 'departure', value: '', dislayValue: 'toto'},
         {label: 'arrival', value: '', dislayValue: ''},
         {label: 'time', value: '', dislayValue: ''},
         {label: 'description', value: '', dislayValue: ''}
