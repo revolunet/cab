@@ -54,7 +54,7 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
         console.log('fieldChange', this, arguments);
         var ride = Ext.ModelMgr.getModel('Ride');
 
-        trip.load('42', {
+        ride.load('42', {
             scope: this,
             params: {
                 userId: Cab.utils.userId,

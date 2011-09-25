@@ -5,6 +5,6 @@ Ext.regModel('Ride', {
     ],
     proxy: {
         type: 'scripttag',
-        url: 'http://172.16.60.65:3000/trips/ask'
+        url: API_URL + 'trips/ask'
     }
 });
