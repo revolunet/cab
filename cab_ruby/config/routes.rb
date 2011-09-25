@@ -1,9 +1,13 @@
 CabRuby::Application.routes.draw do
+  get "places/index"
+
   resources :trips do
     collection do
       get :ask
       get :confirm
       get :move
+      get :create_trip
+      get :polling
     end
   end
 
