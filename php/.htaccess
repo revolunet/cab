@@ -1,0 +1,10 @@
+
+
+RewriteEngine On
+
+RewriteRule ^trips/create_trip$	create_trip.php [L]
+RewriteRule ^trips/polling$	polling.php [L]
+RewriteRule ^places/index.json$	places.php [L]
+RewriteRule ^trips/ask$	ask.php [L]
+RewriteRule ^trips/move$	move.php [L]
+RewriteRule ^confirm$	confirm.php [L]
