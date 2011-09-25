@@ -41,3 +41,7 @@ body {
 .x-input-checkbox {
     height: 55px;
 }
+
+.login-panel {
+    background: url('../img/landing_page.png') no-repeat scroll top left rgb(255, 230, 27);
+}

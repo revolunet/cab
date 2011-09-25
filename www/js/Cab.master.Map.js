@@ -4,10 +4,12 @@ Cab.master.Map =  Ext.extend(Ext.Map, {
     // width:800,
     // height:400,
     delay:100,
+
     destination: {
         latitude:48.847081,
         longitude:2.386672
     },
+
     initComponent: function() {
         this.markers = {
             passenger: null,
@@ -25,12 +27,14 @@ Cab.master.Map =  Ext.extend(Ext.Map, {
 
         // this.task = setInterval(Ext.createDelegate(this.runTask, this), this.delay);
     },
+
     mapRendered: function() {
         this.markers['destination'] = this.createMarker('destination', this.destination.latitude, this.destination.longitude );
         this.updateMyPosition();
         this.updatePassenger();
         this.updateBounds();
     },
+
     updatePassenger:function (passengerPosition) {
         passengerPosition = {
             latitude:48.839583,
