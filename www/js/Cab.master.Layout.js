@@ -16,19 +16,20 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     xtype: 'button',
                     scope: this,
                     handler: this.onBackTap
-                }],
-            // } ,{
-            //     dock: 'bottom',
-            //     xtype: 'toolbar',
-            //     items: [{
-            //         html: 'gloves red',
-            //         xtype: 'container',
-            //         style: {color: 'rgb(255, 230, 27)'}
-            //     }, {xtype: 'spacer'}, {
-            //         html: '15:00',
-            //         xtype: 'container',
-            //         style: {color: 'rgb(255, 230, 27)'}
-            //     }]
+                }]
+            }, {
+                hidden: true,
+                dock: 'bottom',
+                xtype: 'toolbar',
+                items: [{
+                    html: 'gloves red',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }, {xtype: 'spacer'}, {
+                    html: '15:00',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }]
             }]
             ,items: {
                 xtype: 'login',
@@ -67,7 +68,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
             // Confirmation alert
             Ext.Msg.confirm("Nouvelle demande de partage", "Souhaitez vous partager votre taxi?", function(btnId) {
-                console.log('MESSAGE', arguments);
+                console.log('MESSAGE', arguments, data.request);
                 
                 var confirm = Ext.ModelMgr.getModel('Confirm');
 
@@ -86,7 +87,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     this.onDecline();
                 } else {
                     //this.fireEvent('accept', this);
-                    this.onAccept();
+                    this.onAccept(data.request);
                 }
 
             }, this);
@@ -96,10 +97,10 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             console.log('received a response', data.response);
             if (data.response.success == "1") {
                 Ext.Msg.alert("Demande acceptée", "Votre demande de partage a été acceptée", function(btnId) {
-                    console.warn("DEMAND RESPONSE", btnId);
+                    console.warn("DEMAND RESPONSE", btnId, data.response);
                      if (btnId === 'ok') {
                          //this.fireEvent('accept', this);
-                         this.onAccept();
+                         this.onAccept(data.response);
                      }
                 }, this);
             }
@@ -121,9 +122,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         this.setActiveCard( this.getForm() );
     },
 
-    onAccept: function() {
+    onAccept: function(data) {
         console.warn("onAccept", this, arguments);
-        this.setActiveCard( this.getMap() );
+        var card = this.setActiveCard( this.getMap() );
+        // card.dockedItems
+        // this.dockedItems.getAt(1).show();
     },
  
 
@@ -137,12 +140,30 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         this.setActiveCard(this.getForm());
     },
 
-    onBackTap: function() {
+    onBackTap: function(btn) {
         console.log('onBackTap', this, arguments);
-        var card = this.setActiveCard(this.getForm());
-        card.reset();
+
+        var anim = !btn.keepValues ? 'fade' : {type: 'slide', direction: 'right'};
+
+        var card = this.setActiveCard(this.getForm(), anim);
+        if (!btn.keepValues) card.reset();
         Cab.utils.stopPolling();
         this.hideBack();
+
+        if (btn.keepValues) {
+            // var record = list.store.getAt(index);
+            // var card = this.setActiveCard(this.getForm(), {type: 'slide', direction: 'right'});
+            // var row = card.list.store.getAt(0);
+            // console.log("onDepartureListItemTap", record, row);
+            // row.set('value', record.get('id'));
+            // row.set('displayValue', record.get('name'));
+            // this.showBack();
+        } else {
+            // var card = this.setActiveCard(this.getForm());
+            // card.reset();
+            // Cab.utils.stopPolling();
+            // this.hideBack();
+        }
     },
 
     onGoTap: function() {
@@ -151,11 +172,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             card = this.getActiveItem(),
             params = card.getValues();
 
-        console.warn("go", params,     !params.arrival, !params.arrival.length, !params.departure, !params.departure.length, !params.description, !params.description.length, !params.time, !params.time.length);
+        console.warn("go", params, isNaN(params.arrival), isNaN(params.departure), !params.description, !params.description.length, !params.time, !params.time.length);
 
         if (
-            !params.arrival
-            || !params.departure
+            isNaN(params.arrival)
+            || isNaN(params.departure)
             || !params.description || !params.description.length
             || !params.time || !params.time.length
         ) return;
@@ -175,7 +196,8 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                 var card = self.setActiveCard(self.getRides());
                 self.showBack();
             }
-        });
+        }); 
+
     },
 
     onTimetap: function(picker, values) {
@@ -191,7 +213,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     onApparelTap: function(picker, values) {
         console.log('onApparelTap', this, arguments);
         var card = this.getActiveItem();
-        var apparel = values.color + ' ' + values.cloth;
+        var apparel = values.cloth + ' ' + values.color;
         card.list.store.getAt(3).set('value', apparel);
         card.list.store.getAt(3).set('displayValue', apparel);
     },
@@ -200,6 +222,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         console.log('departureTap', this, arguments);
         var card = this.setActiveCard('departure_list', 'slide');
         card.on('itemTap', this.onDepartureListItemTap, this, {single: true});
+        this.showBack(true);
     },
 
     onDepartureListItemTap: function(list, index) {
@@ -209,12 +232,14 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         console.log("onDepartureListItemTap", record, row);
         row.set('value', record.get('id'));
         row.set('displayValue', record.get('name'));
+        this.hideBack();
     },
 
     onArrivalTap: function() {
         console.log('onArrivalTap', this, arguments);
         var card = this.setActiveCard('arrival_list', 'slide');
         card.on('itemTap', this.onArrivalListItemTap, this, {single: true});
+        this.showBack(true);
     },
 
     onArrivalListItemTap: function(list, index) {
@@ -224,15 +249,18 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         var row = card.list.store.getAt(1);
         row.set('value', record.get('id'));
         row.set('displayValue', record.get('name'));
+        this.hideBack();
     },
 
     onRidesItemTap: function(list, index) {
         console.log('onRidesItemTap', this, arguments);  
     },
 
-    showBack: function() {
+    showBack: function(keepValues) {
         console.log('showBack', this, arguments, this.dockedItems);
-        this.dockedItems.first().items.first().show();
+        var button = this.dockedItems.first().items.first();
+        button.show();
+        button.keepValues = keepValues;
     },
 
     hideBack: function() {
@@ -268,7 +296,7 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
     getMap: function() {
         console.log("getMap", this, arguments);
         return {
-            xtype: 'xmap'
+            xtype: 'mapcontainer'
         };
     }
 
