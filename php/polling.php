@@ -24,6 +24,8 @@ if ($requests) {
 		$json['request'] = array(
 			'tripId'=>$row['tripid'],
 			'userId'=>$row['userId'],
+			'time'=>$row['time'],
+			'description'=>$row['description'],
 			'date'=>$row['timesent']
 		);
 		// delete it
