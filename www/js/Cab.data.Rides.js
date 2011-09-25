@@ -13,7 +13,7 @@ Cab.data.Rides = new Ext.data.Store({
     model: 'Rides',
     proxy: {
         type: 'scripttag',
-        url: 'http://172.16.60.65:3000/trips/polling',
+        url: API_URL + 'trips/polling',
         reader: {
             type: 'json',
             root: 'rides'
