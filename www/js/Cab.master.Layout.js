@@ -16,6 +16,18 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     xtype: 'button',
                     scope: this,
                     handler: this.onBackTap
+                }],
+            } ,{
+                dock: 'bottom',
+                xtype: 'toolbar',
+                items: [{
+                    html: 'gloves red',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
+                }, {xtype: 'spacer'}, {
+                    html: '15:00',
+                    xtype: 'container',
+                    style: {color: 'rgb(255, 230, 27)'}
                 }]
             }]
             ,items: {
@@ -29,7 +41,10 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
         Cab.master.Layout.superclass.initComponent.apply(this, arguments);
 
-        this.on('showBack', this.showBack, this);
+        this.on({
+            showBack: this.showBack,
+            cardactivated: this.onCardActivation
+        });
 
         Cab.data.Rides.on({
             scope: this,
@@ -38,6 +53,11 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
         });
 
     }, 
+
+    onCardActivation: function() {
+        console.log('onCardActivation', this, arguments);
+        this.setLoading(false);
+    },
 
     onDecline: function() {
         this.setActiveCard( this.getForm() );
@@ -76,18 +96,20 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             card = this.getActiveItem(),
             params = card.getValues();
 
+        console.warn("go", params,     !params.arrival, !params.arrival.length, !params.departure, !params.departure.length, !params.description, !params.description.length, !params.time, !params.time.length);
+
         if (
-            !params.arrival || !params.arrival.length
-            || !params.departure || !params.departure.length
+            !params.arrival
+            || !params.departure
             || !params.description || !params.description.length
             || !params.time || !params.time.length
         ) return;
 
+        this.setLoading(true);
+
         params.userId = Cab.utils.userId;
 
         var trip = Ext.ModelMgr.getModel('Trip');
-
-        console.warn("go", params, trip);
 
         trip.load('42', {
             scope: this,
