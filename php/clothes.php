@@ -14,7 +14,7 @@ while ($row = mysql_fetch_assoc($sql)) {
 	$json[] = $name;
 }
 
-
+echo "var clothes =";
 jsonOutput($json);
 
 ?>
