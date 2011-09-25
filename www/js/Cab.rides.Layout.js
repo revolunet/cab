@@ -57,8 +57,9 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
         ride.load('42', {
             scope: this,
             params: {
+                value: field.isChecked(),
                 userId: Cab.utils.userId,
-                tripId: field.tripId,
+                tripId: field.tripId
             }
             // callback: function(model, response) {
             //     console.log("callback", this, arguments);
