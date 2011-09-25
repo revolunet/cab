@@ -13,28 +13,18 @@ echo $_GET['callback'];
 		date: '2011-10-23T11:32:44',
 		success: true
 	},
-	rides: [
-		{
-			userId: 'IUGYUFUHV',
+	rides: [{
+			tripId: 'IUGYUFUHV',
 			selected: true,
-			start: {
-				name:"Place de la Madeline",
-				time:'2011-10-23T11:32:44'
-			},
-			end: {
-				name:"Bastille"
-			}
-		},
-		{
-			userId: 'AZERT',
+			start: "Place de la Madeline",
+			time:'2011-10-23T11:32:44',
+			end:"Bastille"
+		}, {
+		    tripId: 'AZERT',
 			selected: false,
-			start: {
-				name:"Aéroport Orly",
-				time:'2011-10-23T11:32:44'
-			},
-			end: {
-				name:"Place d'Italie"
-			}
+			start: "Aéroport Orly",
+			time:'2011-10-23T11:32:44',
+			end:"Place d'Italie"
 		}
 	],
 	passenger: {

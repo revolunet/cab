@@ -18,6 +18,6 @@
 }
 @media only screen and (max-device-width: 480px) {
     .loadmask {
-/*      background: url('img/splashscreen_320x480.png') no-repeat scroll 0 0 transparent;*/
+        background: url('../img/splashscreen_320x480.png') no-repeat scroll 0 0 rgb(255, 230, 27);
     }
 }

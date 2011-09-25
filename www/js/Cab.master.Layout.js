@@ -18,7 +18,13 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     handler: this.onBackTap
                 }]
             }]
-            ,items: this.getForm()
+            ,items: {
+                xtype: 'login',
+                listeners: {el: {
+                    scope: this,
+                    tap: this.onLoginTap
+                }}
+            }
         });
 
         Cab.master.Layout.superclass.initComponent.apply(this, arguments);
@@ -27,64 +33,99 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
 
     },
 
+    onRidesLoad: function() {
+        console.log('onRidesLoad', this, arguments);  
+    },
+
     afterRender: function() {
         Cab.master.Layout.superclass.afterRender.apply(this, arguments);
         Cab.utils.removeLoadMask();
     },
 
+    onLoginTap: function() {
+        console.log("onLoginTap", this, arguments);
+        this.setActiveCard(this.getForm());
+    },
+
     onBackTap: function() {
         console.log('onBackTap', this, arguments);
-        this.setActiveCard(this.getForm());
+        var card = this.setActiveCard(this.getForm());
+        card.reset();
+        Cab.utils.stopPolling();
         this.hideBack();
     },
 
     onGoTap: function() {
         console.log('onGoTap', this, arguments);
-        var self = this;
-        var card = this.setActiveCard(this.getRides());
-        this.showBack();
+        var self = this,
+            card = this.getActiveItem(),
+            params = card.getValues();
+
+        params.userId = Cab.utils.userId;
+        console.warn("go", params);
+
+        var trip = Ext.ModelMgr.getModel('Trip');
+
+        trip.load('42', {
+            scope: this,
+            params: params,
+            callback: function(model, response) {
+                console.log("callback", this, arguments);
+                Cab.utils.startPolling();
+                var card = self.setActiveCard(self.getRides());
+                self.showBack();
+            }
+        });
     },
 
     onTimetap: function(picker, values) {
         console.log('onTimetap', this, arguments);
         var card = this.getActiveItem();
-        card.list.store.getAt(2).set('value', values.hours + ':' + values.minutes);
+        var time = values.hours + ':' + values.minutes;
+        card.list.store.getAt(2).set('value', time);
+        card.list.store.getAt(2).set('displayValue', time);
     },
 
     onApparelTap: function(picker, values) {
         console.log('onApparelTap', this, arguments);
         var card = this.getActiveItem();
-        card.list.store.getAt(3).set('value', values.cloth + ':' + values.color);
+        var apparel = values.color + ' ' + values.cloth;
+        card.list.store.getAt(3).set('value', apparel);
+        card.list.store.getAt(3).set('displayValue', apparel);
     },
 
     onDepartureTap: function() {
         console.log('departureTap', this, arguments);
-        var card = this.setActiveCard('departure_list');
+        var card = this.setActiveCard('departure_list', 'slide');
         card.on('itemTap', this.onDepartureListItemTap, this, {single: true});
     },
 
     onDepartureListItemTap: function(list, index) {
         var record = list.store.getAt(index);
-        var card = this.setActiveCard(this.getForm());
-        card.list.store.getAt(0).set('value', record.get('label'));
+        var card = this.setActiveCard(this.getForm(), {type: 'slide', direction: 'right'});
+        var row = card.list.store.getAt(0);
+        console.log("onDepartureListItemTap", record, row);
+        row.set('value', record.get('id'));
+        row.set('displayValue', record.get('name'));
     },
 
     onArrivalTap: function() {
         console.log('onArrivalTap', this, arguments);
-        var card = this.setActiveCard('arrival_list');
+        var card = this.setActiveCard('arrival_list', 'slide');
         card.on('itemTap', this.onArrivalListItemTap, this, {single: true});
     },
 
     onArrivalListItemTap: function(list, index) {
         console.log('onArrivalListItemTap', this, arguments);
         var record = list.store.getAt(index);
-        var card = this.setActiveCard(this.getForm());
-        card.list.store.getAt(1).set('value', record.get('label'));
+        var card = this.setActiveCard(this.getForm(), {type: 'slide', direction: 'right'});
+        var row = card.list.store.getAt(1);
+        row.set('value', record.get('id'));
+        row.set('displayValue', record.get('name'));
     },
 
     onRidesItemTap: function(list, index) {
-        console.log('onRidesItemTap', this, arguments);
-        
+        console.log('onRidesItemTap', this, arguments);  
     },
 
     showBack: function() {

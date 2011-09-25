@@ -2,19 +2,20 @@ Ext.ns('Cab.rides');
 
 Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
 
-    labelTpl: new Ext.XTemplate('<div class="x-layout-box-inner x-layout-box">'
-            + '<div>'
-                + '<div>{start.name}</div>'
-                + '<div>{end.name}</div>'
+    labelTpl: new Ext.XTemplate(
+        '<div class="x-layout-box-inner x-layout-box">'
+            + '<div style="-webkit-box-flex: 1">'
+                + '<div>{start}</div>'
+                + '<div>{end}</div>'
             + '</div>'
             + '<div>'
-                + '<div>{start.time}</div>'
+                + '<div style="margin: 5px">{time}</div>'
             + '</div>'
         + '</div>', {compiled: true}),
 
     initComponent:function() {
         Cab.rides.Layout.superclass.initComponent.apply(this, arguments);
-        Cab.data.Rides.on('load', this.onStoreLoad, this);
+        this.mon(Cab.data.Rides, 'load', this.onStoreLoad, this);
     },
 
     afterRender: function() {
@@ -36,10 +37,37 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
             console.log("RECORDS", record);
             this.add({
                 xtype: 'checkboxfield',
-                fieldLabel: this.labelTpl.apply(record.data)
+                labelWidth: '80%',
+                tripId: record.get('tripId'),
+                checked: record.get('selected'),
+                label: this.labelTpl.apply(record.data),
+                listeners: {
+                    check: this.fieldChange,
+                    uncheck: this.fieldChange
+                }
             });
         }, this);
         this.doLayout();
+    },
+
+    fieldChange: function(field) {
+        console.log('fieldChange', this, arguments);
+        var ride = Ext.ModelMgr.getModel('Ride');
+
+        ride.load('42', {
+            scope: this,
+            params: {
+                value: field.isChecked(),
+                userId: Cab.utils.userId,
+                tripId: field.tripId
+            }
+            // callback: function(model, response) {
+            //     console.log("callback", this, arguments);
+            //     Cab.utils.startPolling();
+            //     var card = self.setActiveCard(self.getRides());
+            //     self.showBack();
+            // }
+        });
     }
 
 });
