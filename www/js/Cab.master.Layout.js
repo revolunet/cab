@@ -76,6 +76,13 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
             card = this.getActiveItem(),
             params = card.getValues();
 
+        if (
+            !params.arrival || !params.arrival.length
+            || !params.departure || !params.departure.length
+            || !params.description || !params.description.length
+            || !params.time || !params.time.length
+        ) return;
+
         params.userId = Cab.utils.userId;
 
         var trip = Ext.ModelMgr.getModel('Trip');
