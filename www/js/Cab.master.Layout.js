@@ -17,18 +17,18 @@ Cab.master.Layout = Ext.extend(Ext.ux.CardPanel, {
                     scope: this,
                     handler: this.onBackTap
                 }],
-            } ,{
-                dock: 'bottom',
-                xtype: 'toolbar',
-                items: [{
-                    html: 'gloves red',
-                    xtype: 'container',
-                    style: {color: 'rgb(255, 230, 27)'}
-                }, {xtype: 'spacer'}, {
-                    html: '15:00',
-                    xtype: 'container',
-                    style: {color: 'rgb(255, 230, 27)'}
-                }]
+            // } ,{
+            //     dock: 'bottom',
+            //     xtype: 'toolbar',
+            //     items: [{
+            //         html: 'gloves red',
+            //         xtype: 'container',
+            //         style: {color: 'rgb(255, 230, 27)'}
+            //     }, {xtype: 'spacer'}, {
+            //         html: '15:00',
+            //         xtype: 'container',
+            //         style: {color: 'rgb(255, 230, 27)'}
+            //     }]
             }]
             ,items: {
                 xtype: 'login',
