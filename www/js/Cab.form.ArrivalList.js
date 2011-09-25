@@ -5,7 +5,7 @@ Cab.form.ArrivalList = Ext.extend(Ext.List, {
     initComponent:function() {
 
         Ext.apply(this, {
-            itemTpl: '{label}',
+            itemTpl: '{name}',
             store: Cab.data.Location
         });
 

@@ -2,6 +2,8 @@ Ext.ns('Cab.utils');
 
 Cab.utils = {
 
+    userId: null,
+
     removeLoadMask: function() {
         var el = Ext.getBody().down('.loadmask');
 
@@ -10,14 +12,26 @@ Cab.utils = {
         });
     },
 
+    stopPolling: function() {
+        console.log('stopPolling', this, arguments);
+        if (this.pollTimeout) {
+            clearTimeout(this.pollTimeout);
+        }
+    },
+
     startPolling: function() {
-        setInterval(function() {
-            Cab.data.Rides.load({
-                params: {
-                    userId: Cab.utils.userId
-                }
-            });
+        Cab.utils.poll();
+        this.pollTimeout = setInterval(function() {
+            Cab.utils.poll();
         }, 5000);
+    },
+
+    poll: function() {
+        Cab.data.Rides.load({
+            params: {
+                userId: Cab.utils.userId
+            }
+        });
     },
 
     loadUserId: function() {
@@ -29,6 +43,30 @@ Cab.utils = {
         }
         Cab.utils.userId = userId;
         return Cab.utils.userId;
+    },
+
+    watchPosition: function() {
+        var self = this;
+        navigator.geolocation.watchPosition(function(position) {
+            console.log("position", this, arguments);
+            self.position = position.coords;
+            self.sendPosition();
+        });
+    },
+
+    sendPosition: function() {
+        var position = Ext.ModelMgr.getModel('Position');
+        position.load('42', {
+            scope: this,
+            params: {
+                userId: this.userId,
+                latitude: this.position.latitude,
+                longitude: this.position.longitude
+            },
+            callback: function(model, response) {
+                console.log("position callback", this, arguments);
+            }
+        });
     },
 
     localStorage: new function() {
