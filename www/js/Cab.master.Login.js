@@ -10,8 +10,6 @@ Cab.master.Login = Ext.extend(Ext.Container, {
 
         Cab.master.Login.superclass.initComponent.apply(this, arguments);
 
-        Cab.data.Rides.on('load', this.onRidesLoad, this);
-
     }
 
 });

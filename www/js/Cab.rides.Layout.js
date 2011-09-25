@@ -15,7 +15,7 @@ Cab.rides.Layout = Ext.extend(Ext.form.FormPanel, {
 
     initComponent:function() {
         Cab.rides.Layout.superclass.initComponent.apply(this, arguments);
-        this.mon(Cab.data.Rides, 'load', this.onStoreLoad, this)
+        this.mon(Cab.data.Rides, 'load', this.onStoreLoad, this);
     },
 
     afterRender: function() {
