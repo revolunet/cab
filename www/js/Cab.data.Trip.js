@@ -20,10 +20,10 @@ Cab.data.Trip = new Ext.data.Store({
     ],
     reset: function() {
         this.loadData([
-            {label: 'departure', value: 42, dislayValue: 'titi'},
-            {label: 'arrival', value: '', dislayValue: ''},
-            {label: 'time', value: '', dislayValue: ''},
-            {label: 'description', value: '', dislayValue: ''}
+            {label: 'departure', value: 4, dislayValue: 'test'},
+            {label: 'arrival', value:5, dislayValue: 'test'},
+            {label: 'time', value: '15:00', dislayValue: '15:00'},
+            {label: 'description', value: 'red gloves', dislayValue: 'red gloves'}
         ]);
     }
 });

@@ -6,7 +6,8 @@ Cab.master.Login = Ext.extend(Ext.Container, {
 
         Ext.apply(this, {
             scroll: 'vertical',
-            html: '<img src="img/landing_page.png" />',
+            style: {background: 'rgb(255, 230, 27)'},
+            html: '<img style="width: 100%" src="img/landing_page.png" />',
             // bodyCls: 'login-panel'
             // html: 'landing page!<br />TODO: Build a landing page to detail test scenario for app testers.<br /><br /> <i>tap on it to make it vanish...</i>'
         });

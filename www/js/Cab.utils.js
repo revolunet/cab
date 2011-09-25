@@ -10,6 +10,10 @@ Cab.utils = {
         if (el) Ext.Anim.run(el, 'fade', {
             after: Ext.createDelegate(el.remove, el)
         });
+        Ext.fly(document.body).setStyle({
+            'background-color': '#FFF',
+            'background-image': 'none'
+        })
     },
 
     stopPolling: function() {
