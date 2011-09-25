@@ -4,6 +4,9 @@ Cab.rides.Layout = Ext.extend(Ext.Panel, {
 
     scroll: 'vertical',
     cls: 'rides-layout',
+    style: {
+        background: 'white'
+    },
 
     labelTpl: new Ext.XTemplate(
         '<div class="x-layout-box-inner x-layout-box">'
